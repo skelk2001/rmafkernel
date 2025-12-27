@@ -18,6 +18,7 @@ COMPILATION
 To compile it you need javacc (the Java compiler-compiler) and javac. 
 
 javacc RMAFKernel.jj
+
 javac RMAFKernel.java
 
 I have also made an executable JAR file RMAFKernel.jar available, should you not

@@ -1,6 +1,6 @@
 # rmafkernel
 
-This is an implementaion in Java of the kernelization algorithm described
+This is an implementation in Java of the kernelization algorithm described
 in "Cyclic generators and an improved linear kernel for the rooted subtree
 prune and regraft distance" by Kelk, Linz and Meuwese,
 Information Processing Letters, Volume 180, February 2023, 106336. 

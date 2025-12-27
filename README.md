@@ -7,7 +7,7 @@ Information Processing Letters, Volume 180, February 2023, 106336.
 https://doi.org/10.1016/j.ipl.2022.106336
 
 It is a kernelization algorithm for the rooted maximum agreement forest
-(rMAF) problem on two binary trees on the same set of taxa X.
+(rMAF) problem on two rooted binary trees on the same set of taxa X.
 
 It applies the reduction rules described in the article (subtree, chain,
 3-2) to exhaustion.

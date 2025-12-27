@@ -64,7 +64,7 @@ closely-related rSPR distance, as opposed to rMAF, please take that into account
 2. Rather than truncating maximal common chains to length 3, the code simply iteratively
 truncates maximal common chains of length 4 to length 3.
 
-3. If you have solved the reduced pair of trees, and which to transform this agreement
+3. If you have solved the reduced pair of trees, and wish to transform this agreement
 forest into an agreement forest for the original pair of trees, please be aware of
 subtleties around the 'undoing' of the chain reduction. Specifically: if there is a
 common chain (a,b,c,d) and taxon 'd' is cut off during the kernelization, and you wish

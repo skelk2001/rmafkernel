@@ -1,0 +1,749 @@
+// Verbose mode switched on.
+// RMAFKernel.jj Version 1.0 by Steven Kelk, December 2025
+// An implementation of the 9k kernel for two-tree binary rMAF by Kelk, Linz and Meuwese
+// See: https://doi.org/10.1016/j.ipl.2022.106336
+// 350 taxa are still left.
+// Reduced common cherry (168,69) into single taxon 168
+// 349 taxa are still left.
+// Reduced common cherry (156,198) into single taxon 156
+// 348 taxa are still left.
+// Reduced common cherry (168,156) into single taxon 168
+// 347 taxa are still left.
+// Reduced common cherry (168,260) into single taxon 168
+// 346 taxa are still left.
+// Reduced common cherry (74,255) into single taxon 74
+// 345 taxa are still left.
+// Reduced common cherry (74,256) into single taxon 74
+// 344 taxa are still left.
+// Reduced common cherry (168,74) into single taxon 168
+// 343 taxa are still left.
+// Reduced common cherry (168,321) into single taxon 168
+// 342 taxa are still left.
+// Reduced common cherry (287,207) into single taxon 287
+// 341 taxa are still left.
+// Reduced common cherry (287,237) into single taxon 287
+// 340 taxa are still left.
+// Reduced common cherry (168,287) into single taxon 168
+// 339 taxa are still left.
+// Reduced common cherry (302,212) into single taxon 302
+// 338 taxa are still left.
+// Reduced common cherry (302,132) into single taxon 302
+// 337 taxa are still left.
+// Reduced common cherry (235,90) into single taxon 235
+// 336 taxa are still left.
+// Reduced common cherry (347,188) into single taxon 347
+// 335 taxa are still left.
+// Reduced common cherry (106,218) into single taxon 106
+// 334 taxa are still left.
+// Reduced common cherry (192,80) into single taxon 192
+// 333 taxa are still left.
+// Reduced common cherry (106,192) into single taxon 106
+// 332 taxa are still left.
+// Reduced common cherry (340,344) into single taxon 340
+// 331 taxa are still left.
+// Reduced common cherry (106,340) into single taxon 106
+// 330 taxa are still left.
+// Reduced common cherry (47,173) into single taxon 47
+// 329 taxa are still left.
+// Reduced common cherry (31,289) into single taxon 31
+// 328 taxa are still left.
+// Reduced common cherry (31,97) into single taxon 31
+// 327 taxa are still left.
+// Reduced common cherry (236,82) into single taxon 236
+// 326 taxa are still left.
+// Reduced common cherry (236,285) into single taxon 236
+// 325 taxa are still left.
+// Reduced common cherry (236,267) into single taxon 236
+// 324 taxa are still left.
+// Reduced common cherry (236,278) into single taxon 236
+// 323 taxa are still left.
+// Reduced common cherry (236,265) into single taxon 236
+// 322 taxa are still left.
+// Reduced common cherry (236,269) into single taxon 236
+// 321 taxa are still left.
+// Reduced common cherry (236,234) into single taxon 236
+// 320 taxa are still left.
+// Reduced common cherry (339,241) into single taxon 339
+// 319 taxa are still left.
+// Reduced common cherry (339,72) into single taxon 339
+// 318 taxa are still left.
+// Reduced common cherry (236,339) into single taxon 236
+// 317 taxa are still left.
+// Reduced common cherry (158,280) into single taxon 158
+// 316 taxa are still left.
+// Reduced common cherry (158,62) into single taxon 158
+// 315 taxa are still left.
+// Reduced common cherry (158,232) into single taxon 158
+// 314 taxa are still left.
+// Reduced common cherry (158,44) into single taxon 158
+// 313 taxa are still left.
+// Reduced common cherry (158,35) into single taxon 158
+// 312 taxa are still left.
+// Reduced common cherry (158,316) into single taxon 158
+// 311 taxa are still left.
+// Reduced common cherry (115,5) into single taxon 115
+// 310 taxa are still left.
+// Reduced common cherry (189,349) into single taxon 189
+// 309 taxa are still left.
+// Reduced common cherry (189,9) into single taxon 189
+// 308 taxa are still left.
+// Reduced common cherry (253,210) into single taxon 253
+// 307 taxa are still left.
+// Reduced common cherry (253,16) into single taxon 253
+// 306 taxa are still left.
+// Reduced common cherry (240,261) into single taxon 240
+// 305 taxa are still left.
+// Reduced common cherry (240,233) into single taxon 240
+// 304 taxa are still left.
+// Reduced common cherry (240,283) into single taxon 240
+// 303 taxa are still left.
+// Reduced common cherry (240,22) into single taxon 240
+// 302 taxa are still left.
+// Reduced common cherry (240,137) into single taxon 240
+// 301 taxa are still left.
+// Reduced common cherry (240,34) into single taxon 240
+// 300 taxa are still left.
+// Reduced common cherry (148,94) into single taxon 148
+// 299 taxa are still left.
+// Reduced common cherry (11,251) into single taxon 11
+// 298 taxa are still left.
+// Reduced common cherry (11,252) into single taxon 11
+// 297 taxa are still left.
+// Reduced common cherry (11,40) into single taxon 11
+// 296 taxa are still left.
+// Reduced common cherry (54,296) into single taxon 54
+// 295 taxa are still left.
+// Reduced common cherry (323,224) into single taxon 323
+// 294 taxa are still left.
+// Reduced common cherry (112,165) into single taxon 112
+// 293 taxa are still left.
+// Reduced common cherry (112,87) into single taxon 112
+// 292 taxa are still left.
+// Reduced common cherry (112,153) into single taxon 112
+// 291 taxa are still left.
+// Reduced common cherry (131,52) into single taxon 131
+// 290 taxa are still left.
+// Reduced common cherry (131,130) into single taxon 131
+// 289 taxa are still left.
+// Reduced common cherry (131,191) into single taxon 131
+// 288 taxa are still left.
+// Reduced common cherry (197,175) into single taxon 197
+// 287 taxa are still left.
+// Reduced common cherry (102,202) into single taxon 102
+// 286 taxa are still left.
+// Reduced common cherry (102,273) into single taxon 102
+// 285 taxa are still left.
+// Reduced common cherry (64,102) into single taxon 64
+// 284 taxa are still left.
+// Reduced common cherry (64,15) into single taxon 64
+// 283 taxa are still left.
+// Reduced common cherry (64,91) into single taxon 64
+// 282 taxa are still left.
+// Reduced common cherry (64,308) into single taxon 64
+// 281 taxa are still left.
+// Reduced common cherry (64,304) into single taxon 64
+// 280 taxa are still left.
+// Reduced common cherry (64,63) into single taxon 64
+// 279 taxa are still left.
+// Reduced common cherry (23,170) into single taxon 23
+// 278 taxa are still left.
+// Reduced common cherry (312,335) into single taxon 312
+// 277 taxa are still left.
+// Reduced common cherry (23,312) into single taxon 23
+// 276 taxa are still left.
+// Reduced common cherry (182,59) into single taxon 182
+// 275 taxa are still left.
+// Reduced common cherry (23,182) into single taxon 23
+// 274 taxa are still left.
+// Reduced common cherry (23,270) into single taxon 23
+// 273 taxa are still left.
+// Reduced common cherry (27,96) into single taxon 27
+// 272 taxa are still left.
+// Reduced common cherry (23,27) into single taxon 23
+// 271 taxa are still left.
+// Reduced common cherry (23,41) into single taxon 23
+// 270 taxa are still left.
+// Reduced common cherry (201,209) into single taxon 201
+// 269 taxa are still left.
+// Reduced common cherry (343,85) into single taxon 343
+// 268 taxa are still left.
+// Reduced common cherry (343,194) into single taxon 343
+// 267 taxa are still left.
+// Reduced common cherry (225,125) into single taxon 225
+// 266 taxa are still left.
+// Reduced common cherry (230,249) into single taxon 230
+// 265 taxa are still left.
+// Reduced common cherry (19,45) into single taxon 19
+// 264 taxa are still left.
+// Reduced common cherry (101,276) into single taxon 101
+// 263 taxa are still left.
+// Reduced common cherry (101,187) into single taxon 101
+// 262 taxa are still left.
+// Reduced common cherry (152,154) into single taxon 152
+// 261 taxa are still left.
+// Reduced common cherry (146,337) into single taxon 146
+// 260 taxa are still left.
+// Reduced common cherry (211,311) into single taxon 211
+// 259 taxa are still left.
+// Reduced common cherry (341,186) into single taxon 341
+// 258 taxa are still left.
+// Reduced common cherry (196,263) into single taxon 196
+// 257 taxa are still left.
+// Reduced common cherry (196,208) into single taxon 196
+// 256 taxa are still left.
+// Reduced common cherry (196,124) into single taxon 196
+// 255 taxa are still left.
+// Reduced common cherry (33,83) into single taxon 33
+// 254 taxa are still left.
+// Reduced common cherry (258,33) into single taxon 258
+// 253 taxa are still left.
+// Reduced common cherry (39,46) into single taxon 39
+// 252 taxa are still left.
+// Reduced common cherry (39,238) into single taxon 39
+// 251 taxa are still left.
+// Reduced common cherry (39,157) into single taxon 39
+// 250 taxa are still left.
+// Reduced common cherry (39,155) into single taxon 39
+// 249 taxa are still left.
+// Reduced common cherry (336,163) into single taxon 336
+// 248 taxa are still left.
+// Reduced common cherry (39,336) into single taxon 39
+// 247 taxa are still left.
+// Reduced common cherry (48,68) into single taxon 48
+// 246 taxa are still left.
+// Reduced common cherry (17,48) into single taxon 17
+// 245 taxa are still left.
+// Reduced common cherry (39,17) into single taxon 39
+// 244 taxa are still left.
+// Reduced common cherry (185,12) into single taxon 185
+// 243 taxa are still left.
+// Reduced common cherry (143,70) into single taxon 143
+// 242 taxa are still left.
+// Reduced common cherry (143,227) into single taxon 143
+// 241 taxa are still left.
+// Reduced common cherry (81,350) into single taxon 81
+// 240 taxa are still left.
+// Reduced common cherry (67,279) into single taxon 67
+// 239 taxa are still left.
+// Reduced common cherry (220,331) into single taxon 220
+// 238 taxa are still left.
+// Reduced common cherry (220,307) into single taxon 220
+// 237 taxa are still left.
+// Reduced common cherry (183,338) into single taxon 183
+// 236 taxa are still left.
+// Reduced common cherry (183,92) into single taxon 183
+// 235 taxa are still left.
+// Reduced common cherry (53,1) into single taxon 53
+// 234 taxa are still left.
+// Reduced common cherry (73,149) into single taxon 73
+// 233 taxa are still left.
+// Reduced common cherry (73,122) into single taxon 73
+// 232 taxa are still left.
+// Reduced common cherry (206,262) into single taxon 206
+// 231 taxa are still left.
+// Reduced common cherry (223,171) into single taxon 223
+// 230 taxa are still left.
+// Reduced common cherry (89,228) into single taxon 89
+// 229 taxa are still left.
+// Reduced common cherry (117,215) into single taxon 117
+// 228 taxa are still left.
+// Reduced common cherry (286,144) into single taxon 286
+// 227 taxa are still left.
+// Reduced common cherry (286,164) into single taxon 286
+// 226 taxa are still left.
+// Reduced common cherry (129,284) into single taxon 129
+// 225 taxa are still left.
+// Reduced common cherry (136,248) into single taxon 136
+// 224 taxa are still left.
+// Reduced common cherry (136,342) into single taxon 136
+// 223 taxa are still left.
+// Reduced common cherry (136,139) into single taxon 136
+// 222 taxa are still left.
+// Reduced common cherry (136,275) into single taxon 136
+// 221 taxa are still left.
+// Reduced common cherry (136,184) into single taxon 136
+// 220 taxa are still left.
+// Reduced common cherry (136,174) into single taxon 136
+// 219 taxa are still left.
+// Reduced common cherry (136,107) into single taxon 136
+// 218 taxa are still left.
+// Reduced common cherry (136,333) into single taxon 136
+// 217 taxa are still left.
+// Reduced common cherry (136,259) into single taxon 136
+// 216 taxa are still left.
+// Reduced common cherry (3,141) into single taxon 3
+// 215 taxa are still left.
+// Reduced common cherry (136,3) into single taxon 136
+// 214 taxa are still left.
+// Reduced common cherry (229,272) into single taxon 229
+// 213 taxa are still left.
+// Reduced common cherry (136,229) into single taxon 136
+// 212 taxa are still left.
+// Reduced common cherry (136,71) into single taxon 136
+// 211 taxa are still left.
+// Reduced common cherry (77,334) into single taxon 77
+// 210 taxa are still left.
+// Reduced common cherry (136,77) into single taxon 136
+// 209 taxa are still left.
+// Reduced common cherry (136,21) into single taxon 136
+// 208 taxa are still left.
+// Reduced common cherry (32,246) into single taxon 32
+// 207 taxa are still left.
+// Reduced common cherry (136,32) into single taxon 136
+// 206 taxa are still left.
+// Reduced common cherry (120,38) into single taxon 120
+// 205 taxa are still left.
+// Reduced common cherry (271,298) into single taxon 271
+// 204 taxa are still left.
+// Reduced common cherry (315,25) into single taxon 315
+// 203 taxa are still left.
+// Reduced common cherry (13,26) into single taxon 13
+// 202 taxa are still left.
+// Reduced common cherry (13,222) into single taxon 13
+// 201 taxa are still left.
+// Reduced common cherry (13,250) into single taxon 13
+// 200 taxa are still left.
+// Reduced common cherry (121,58) into single taxon 121
+// 199 taxa are still left.
+// Reduced common cherry (264,119) into single taxon 264
+// 198 taxa are still left.
+// Reduced common cherry (264,299) into single taxon 264
+// 197 taxa are still left.
+// Reduced common cherry (281,114) into single taxon 281
+// 196 taxa are still left.
+// Reduced common cherry (28,277) into single taxon 28
+// 195 taxa are still left.
+// Reduced common cherry (243,123) into single taxon 243
+// 194 taxa are still left.
+// Reduced common cherry (320,301) into single taxon 320
+// 193 taxa are still left.
+// Reduced common cherry (116,203) into single taxon 116
+// 192 taxa are still left.
+// Reduced common cherry (214,179) into single taxon 214
+// 191 taxa are still left.
+// Reduced common cherry (221,147) into single taxon 221
+// 190 taxa are still left.
+// Reduced common cherry (18,322) into single taxon 18
+// 189 taxa are still left.
+// Reduced common cherry (18,314) into single taxon 18
+// 188 taxa are still left.
+// Reduced common cherry (18,160) into single taxon 18
+// 187 taxa are still left.
+// Reduced common cherry (18,199) into single taxon 18
+// 186 taxa are still left.
+// Reduced common cherry (18,24) into single taxon 18
+// 185 taxa are still left.
+// Reduced common cherry (18,290) into single taxon 18
+// 184 taxa are still left.
+// Reduced common cherry (18,84) into single taxon 18
+// 183 taxa are still left.
+// Reduced common cherry (18,76) into single taxon 18
+// 182 taxa are still left.
+// Reduced common cherry (239,60) into single taxon 239
+// 181 taxa are still left.
+// Reduced common cherry (18,239) into single taxon 18
+// 180 taxa are still left.
+// Reduced common cherry (18,310) into single taxon 18
+// 179 taxa are still left.
+// Reduced common cherry (18,37) into single taxon 18
+// 178 taxa are still left.
+// Reduced common cherry (99,104) into single taxon 99
+// 177 taxa are still left.
+// Reduced common cherry (18,99) into single taxon 18
+// 176 taxa are still left.
+// Reduced common cherry (86,330) into single taxon 86
+// 175 taxa are still left.
+// Reduced common cherry (18,86) into single taxon 18
+// 174 taxa are still left.
+// Reduced common cherry (30,346) into single taxon 30
+// 173 taxa are still left.
+// Reduced common cherry (30,57) into single taxon 30
+// 172 taxa are still left.
+// Reduced common cherry (18,30) into single taxon 18
+// 171 taxa are still left.
+// Reduced common cherry (127,193) into single taxon 127
+// 170 taxa are still left.
+// Reduced common cherry (127,274) into single taxon 127
+// 169 taxa are still left.
+// Reduced common cherry (254,4) into single taxon 254
+// 168 taxa are still left.
+// Found common 4-chain (235,242,302,168). Deleting fourth taxon 168
+// 167 taxa are still left.
+// Found common 4-chain (159,7,54,291). Deleting fourth taxon 291
+// 166 taxa are still left.
+// Found common 4-chain (323,159,7,54). Deleting fourth taxon 54
+// 165 taxa are still left.
+// Found common 4-chain (319,323,159,7). Deleting fourth taxon 7
+// 164 taxa are still left.
+// Found common 4-chain (66,56,131,317). Deleting fourth taxon 317
+// 163 taxa are still left.
+// Found common 4-chain (197,66,56,131). Deleting fourth taxon 131
+// 162 taxa are still left.
+// Found common 4-chain (14,138,213,200). Deleting fourth taxon 200
+// 161 taxa are still left.
+// Found common 4-chain (225,14,138,213). Deleting fourth taxon 213
+// 160 taxa are still left.
+// Found common 4-chain (328,225,14,138). Deleting fourth taxon 138
+// 159 taxa are still left.
+// Found common 4-chain (230,328,225,14). Deleting fourth taxon 14
+// 158 taxa are still left.
+// Found common 4-chain (128,230,328,225). Deleting fourth taxon 225
+// 157 taxa are still left.
+// Found common 4-chain (282,78,79,65). Deleting fourth taxon 65
+// 156 taxa are still left.
+// Found common 4-chain (326,282,78,79). Deleting fourth taxon 79
+// 155 taxa are still left.
+// Found common 4-chain (88,326,282,78). Deleting fourth taxon 78
+// 154 taxa are still left.
+// Found common 4-chain (294,88,326,282). Deleting fourth taxon 282
+// 153 taxa are still left.
+// Found common 4-chain (244,294,88,326). Deleting fourth taxon 326
+// 152 taxa are still left.
+// Found common 4-chain (6,152,101,325). Deleting fourth taxon 325
+// 151 taxa are still left.
+// Found common 4-chain (190,6,152,101). Deleting fourth taxon 101
+// 150 taxa are still left.
+// Found common 4-chain (169,190,6,152). Deleting fourth taxon 152
+// 149 taxa are still left.
+// Found common 4-chain (126,169,190,6). Deleting fourth taxon 6
+// 148 taxa are still left.
+// Found common 4-chain (146,126,169,190). Deleting fourth taxon 190
+// 147 taxa are still left.
+// Found common 4-chain (55,146,126,169). Deleting fourth taxon 169
+// 146 taxa are still left.
+// Found common 4-chain (211,55,146,126). Deleting fourth taxon 126
+// 145 taxa are still left.
+// Found common 4-chain (341,211,55,146). Deleting fourth taxon 146
+// 144 taxa are still left.
+// Found common 4-chain (196,341,211,55). Deleting fourth taxon 55
+// 143 taxa are still left.
+// Found common 4-chain (180,196,341,211). Deleting fourth taxon 211
+// 142 taxa are still left.
+// Found common 4-chain (258,180,196,341). Deleting fourth taxon 341
+// 141 taxa are still left.
+// Found common 4-chain (220,313,268,67). Deleting fourth taxon 67
+// 140 taxa are still left.
+// Found common 4-chain (206,303,73,53). Deleting fourth taxon 53
+// 139 taxa are still left.
+// Found common 4-chain (145,95,20,89). Deleting fourth taxon 89
+// 138 taxa are still left.
+// Found common 4-chain (117,145,95,20). Deleting fourth taxon 20
+// 137 taxa are still left.
+// Found common 4-chain (286,117,145,95). Deleting fourth taxon 95
+// 136 taxa are still left.
+// Found common 4-chain (329,286,117,145). Deleting fourth taxon 145
+// 135 taxa are still left.
+// Found common 4-chain (129,329,286,117). Deleting fourth taxon 117
+// 134 taxa are still left.
+// Found common 4-chain (18,43,345,295). Deleting fourth taxon 295
+// 133 taxa are still left.
+// Found common 4-chain (18,43,345,150). Deleting fourth taxon 150
+// 132 taxa are still left.
+// Found common 4-chain (127,18,43,345). Deleting fourth taxon 345
+// 131 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 172
+// 130 taxa are still left.
+// Reduced common cherry (302,242) into single taxon 302
+// 129 taxa are still left.
+// Reduced common cherry (302,235) into single taxon 302
+// 128 taxa are still left.
+// Reduced common cherry (148,8) into single taxon 148
+// 127 taxa are still left.
+// Reduced common cherry (148,151) into single taxon 148
+// 126 taxa are still left.
+// Found common 4-chain (106,302,111,347). Deleting fourth taxon 347
+// 125 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 204
+// 124 taxa are still left.
+// Reduced common cherry (47,100) into single taxon 47
+// 123 taxa are still left.
+// Reduced common cherry (196,180) into single taxon 196
+// 122 taxa are still left.
+// Reduced common cherry (196,258) into single taxon 196
+// 121 taxa are still left.
+// Found common 4-chain (47,106,302,111). Deleting fourth taxon 111
+// 120 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 143
+// 119 taxa are still left.
+// Reduced common cherry (31,118) into single taxon 31
+// 118 taxa are still left.
+// Found common 4-chain (31,47,106,302). Deleting fourth taxon 302
+// 117 taxa are still left.
+// Found common 4-chain (236,31,47,106). Deleting fourth taxon 106
+// 116 taxa are still left.
+// Found common 4-chain (158,236,31,47). Deleting fourth taxon 47
+// 115 taxa are still left.
+// Found common 4-chain (166,39,167,185). Deleting fourth taxon 185
+// 114 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 247
+// 113 taxa are still left.
+// Reduced common cherry (109,324) into single taxon 109
+// 112 taxa are still left.
+// Reduced common cherry (109,288) into single taxon 109
+// 111 taxa are still left.
+// Found common 4-chain (109,158,236,31). Deleting fourth taxon 31
+// 110 taxa are still left.
+// Found common 4-chain (115,109,158,236). Deleting fourth taxon 236
+// 109 taxa are still left.
+// Found common 4-chain (189,115,109,158). Deleting fourth taxon 158
+// 108 taxa are still left.
+// Found common 4-chain (253,189,115,109). Deleting fourth taxon 109
+// 107 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 205
+// 106 taxa are still left.
+// Reduced common cherry (159,323) into single taxon 159
+// 105 taxa are still left.
+// Reduced common cherry (159,319) into single taxon 159
+// 104 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 201
+// 103 taxa are still left.
+// Reduced common cherry (112,266) into single taxon 112
+// 102 taxa are still left.
+// Reduced common cherry (23,292) into single taxon 23
+// 101 taxa are still left.
+// Reduced common cherry (23,36) into single taxon 23
+// 100 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 28
+// 99 taxa are still left.
+// Reduced common cherry (112,113) into single taxon 112
+// 98 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 217
+// 97 taxa are still left.
+// Reduced common cherry (23,309) into single taxon 23
+// 96 taxa are still left.
+// Reduced common cherry (23,176) into single taxon 23
+// 95 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 245
+// 94 taxa are still left.
+// Reduced common cherry (56,66) into single taxon 56
+// 93 taxa are still left.
+// Reduced common cherry (56,197) into single taxon 56
+// 92 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 19
+// 91 taxa are still left.
+// Reduced common cherry (88,294) into single taxon 88
+// 90 taxa are still left.
+// Reduced common cherry (88,244) into single taxon 88
+// 89 taxa are still left.
+// Found common 4-chain (219,134,195,348). Deleting fourth taxon 348
+// 88 taxa are still left.
+// Found common 4-chain (73,219,134,195). Deleting fourth taxon 195
+// 87 taxa are still left.
+// Found common 4-chain (303,73,219,134). Deleting fourth taxon 134
+// 86 taxa are still left.
+// Found common 4-chain (206,303,73,219). Deleting fourth taxon 219
+// 85 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 223
+// 84 taxa are still left.
+// Reduced common cherry (88,142) into single taxon 88
+// 83 taxa are still left.
+// Reduced common cherry (88,297) into single taxon 88
+// 82 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 81
+// 81 taxa are still left.
+// Reduced common cherry (108,318) into single taxon 108
+// 80 taxa are still left.
+// Reduced common cherry (108,300) into single taxon 108
+// 79 taxa are still left.
+// Reduced common cherry (264,177) into single taxon 264
+// 78 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 108
+// 77 taxa are still left.
+// Reduced common cherry (61,293) into single taxon 61
+// 76 taxa are still left.
+// Found common 4-chain (61,231,162,133). Deleting fourth taxon 133
+// 75 taxa are still left.
+// Found common 4-chain (268,61,231,162). Deleting fourth taxon 162
+// 74 taxa are still left.
+// Found common 4-chain (313,268,61,231). Deleting fourth taxon 231
+// 73 taxa are still left.
+// Found common 4-chain (220,313,268,61). Deleting fourth taxon 61
+// 72 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 181
+// 71 taxa are still left.
+// Reduced common cherry (268,313) into single taxon 268
+// 70 taxa are still left.
+// Reduced common cherry (268,220) into single taxon 268
+// 69 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 306
+// 68 taxa are still left.
+// Reduced common cherry (240,110) into single taxon 240
+// 67 taxa are still left.
+// Reduced common cherry (271,327) into single taxon 271
+// 66 taxa are still left.
+// Found common 4-chain (240,253,189,115). Deleting fourth taxon 115
+// 65 taxa are still left.
+// Found common 4-chain (148,240,253,189). Deleting fourth taxon 189
+// 64 taxa are still left.
+// Found common 4-chain (315,271,120,136). Deleting fourth taxon 136
+// 63 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 183
+// 62 taxa are still left.
+// Reduced common cherry (73,303) into single taxon 73
+// 61 taxa are still left.
+// Reduced common cherry (73,206) into single taxon 73
+// 60 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 51
+// 59 taxa are still left.
+// Reduced common cherry (18,43) into single taxon 18
+// 58 taxa are still left.
+// Reduced common cherry (18,127) into single taxon 18
+// 57 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 332
+// 56 taxa are still left.
+// Reduced common cherry (226,135) into single taxon 226
+// 55 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 226
+// 54 taxa are still left.
+// Reduced common cherry (253,240) into single taxon 253
+// 53 taxa are still left.
+// Reduced common cherry (253,148) into single taxon 253
+// 52 taxa are still left.
+// Reduced common cherry (18,254) into single taxon 18
+// 51 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 159
+// 50 taxa are still left.
+// Reduced common cherry (253,11) into single taxon 253
+// 49 taxa are still left.
+// Executed 3-2 chain reduction, removed taxon 56
+// 48 taxa are still left.
+// Reduced common cherry (253,112) into single taxon 253
+// 47 taxa are still left.
+// --- Kernelization is finished.
+// Leaves in original instance: 350
+// Leaves in reduced instance: 47
+// So 303 leaves removed. Breakdown is as follows:
+// --- Due to subtree reduction: 224
+// --- Due to chain reduction: 58
+// --- Due to 3-2 chain reduction: 21
+// Explaining the semantics of the surviving and deleted taxa:
+// Taxon 253 represents the following subset of taxa from the original trees: 253,210,16,240,261,233,283,22,137,34,110,148,94,8,151,11,251,252,40,112,165,87,153,266,113
+// Taxon 64 represents the following subset of taxa from the original trees: 64,102,202,273,15,91,308,304,63
+// Taxon 257 represents the following subset of taxa from the original trees: 257
+// Taxon 23 represents the following subset of taxa from the original trees: 23,170,312,335,182,59,270,27,96,41,292,36,309,176
+// Taxon 343 represents the following subset of taxa from the original trees: 343,85,194
+// Taxon 105 represents the following subset of taxa from the original trees: 105
+// Taxon 10 represents the following subset of taxa from the original trees: 10
+// Taxon 140 represents the following subset of taxa from the original trees: 140
+// Taxon 328 represents the following subset of taxa from the original trees: 328
+// Taxon 230 represents the following subset of taxa from the original trees: 230,249
+// Taxon 128 represents the following subset of taxa from the original trees: 128
+// Taxon 88 represents the following subset of taxa from the original trees: 88,294,244,142,297
+// Taxon 196 represents the following subset of taxa from the original trees: 196,263,208,124,180,258,33,83
+// Taxon 39 represents the following subset of taxa from the original trees: 39,46,238,157,155,336,163,17,48,68
+// Taxon 167 represents the following subset of taxa from the original trees: 167
+// Taxon 166 represents the following subset of taxa from the original trees: 166
+// Taxon 268 represents the following subset of taxa from the original trees: 268,313,220,331,307
+// Taxon 73 represents the following subset of taxa from the original trees: 73,149,122,303,206,262
+// Taxon 42 represents the following subset of taxa from the original trees: 42
+// Taxon 49 represents the following subset of taxa from the original trees: 49
+// Taxon 50 represents the following subset of taxa from the original trees: 50
+// Taxon 93 represents the following subset of taxa from the original trees: 93
+// Taxon 286 represents the following subset of taxa from the original trees: 286,144,164
+// Taxon 329 represents the following subset of taxa from the original trees: 329
+// Taxon 129 represents the following subset of taxa from the original trees: 129,284
+// Taxon 120 represents the following subset of taxa from the original trees: 120,38
+// Taxon 271 represents the following subset of taxa from the original trees: 271,298,327
+// Taxon 315 represents the following subset of taxa from the original trees: 315,25
+// Taxon 13 represents the following subset of taxa from the original trees: 13,26,222,250
+// Taxon 103 represents the following subset of taxa from the original trees: 103
+// Taxon 161 represents the following subset of taxa from the original trees: 161
+// Taxon 121 represents the following subset of taxa from the original trees: 121,58
+// Taxon 216 represents the following subset of taxa from the original trees: 216
+// Taxon 264 represents the following subset of taxa from the original trees: 264,119,299,177
+// Taxon 281 represents the following subset of taxa from the original trees: 281,114
+// Taxon 178 represents the following subset of taxa from the original trees: 178
+// Taxon 29 represents the following subset of taxa from the original trees: 29
+// Taxon 243 represents the following subset of taxa from the original trees: 243,123
+// Taxon 320 represents the following subset of taxa from the original trees: 320,301
+// Taxon 116 represents the following subset of taxa from the original trees: 116,203
+// Taxon 214 represents the following subset of taxa from the original trees: 214,179
+// Taxon 305 represents the following subset of taxa from the original trees: 305
+// Taxon 98 represents the following subset of taxa from the original trees: 98
+// Taxon 2 represents the following subset of taxa from the original trees: 2
+// Taxon 75 represents the following subset of taxa from the original trees: 75
+// Taxon 221 represents the following subset of taxa from the original trees: 221,147
+// Taxon 18 represents the following subset of taxa from the original trees: 18,322,314,160,199,24,290,84,76,239,60,310,37,99,104,86,330,30,346,57,43,127,193,274,254,4
+// Chain reduction deleted taxon 168 representing the subset of taxa from the original trees: 168,69,156,198,260,74,255,256,321,287,207,237
+// Chain reduction deleted taxon 291 representing the subset of taxa from the original trees: 291
+// Chain reduction deleted taxon 54 representing the subset of taxa from the original trees: 54,296
+// Chain reduction deleted taxon 7 representing the subset of taxa from the original trees: 7
+// Chain reduction deleted taxon 317 representing the subset of taxa from the original trees: 317
+// Chain reduction deleted taxon 131 representing the subset of taxa from the original trees: 131,52,130,191
+// Chain reduction deleted taxon 200 representing the subset of taxa from the original trees: 200
+// Chain reduction deleted taxon 213 representing the subset of taxa from the original trees: 213
+// Chain reduction deleted taxon 138 representing the subset of taxa from the original trees: 138
+// Chain reduction deleted taxon 14 representing the subset of taxa from the original trees: 14
+// Chain reduction deleted taxon 225 representing the subset of taxa from the original trees: 225,125
+// Chain reduction deleted taxon 65 representing the subset of taxa from the original trees: 65
+// Chain reduction deleted taxon 79 representing the subset of taxa from the original trees: 79
+// Chain reduction deleted taxon 78 representing the subset of taxa from the original trees: 78
+// Chain reduction deleted taxon 282 representing the subset of taxa from the original trees: 282
+// Chain reduction deleted taxon 326 representing the subset of taxa from the original trees: 326
+// Chain reduction deleted taxon 325 representing the subset of taxa from the original trees: 325
+// Chain reduction deleted taxon 101 representing the subset of taxa from the original trees: 101,276,187
+// Chain reduction deleted taxon 152 representing the subset of taxa from the original trees: 152,154
+// Chain reduction deleted taxon 6 representing the subset of taxa from the original trees: 6
+// Chain reduction deleted taxon 190 representing the subset of taxa from the original trees: 190
+// Chain reduction deleted taxon 169 representing the subset of taxa from the original trees: 169
+// Chain reduction deleted taxon 126 representing the subset of taxa from the original trees: 126
+// Chain reduction deleted taxon 146 representing the subset of taxa from the original trees: 146,337
+// Chain reduction deleted taxon 55 representing the subset of taxa from the original trees: 55
+// Chain reduction deleted taxon 211 representing the subset of taxa from the original trees: 211,311
+// Chain reduction deleted taxon 341 representing the subset of taxa from the original trees: 341,186
+// Chain reduction deleted taxon 67 representing the subset of taxa from the original trees: 67,279
+// Chain reduction deleted taxon 53 representing the subset of taxa from the original trees: 53,1
+// Chain reduction deleted taxon 89 representing the subset of taxa from the original trees: 89,228
+// Chain reduction deleted taxon 20 representing the subset of taxa from the original trees: 20
+// Chain reduction deleted taxon 95 representing the subset of taxa from the original trees: 95
+// Chain reduction deleted taxon 145 representing the subset of taxa from the original trees: 145
+// Chain reduction deleted taxon 117 representing the subset of taxa from the original trees: 117,215
+// Chain reduction deleted taxon 295 representing the subset of taxa from the original trees: 295
+// Chain reduction deleted taxon 150 representing the subset of taxa from the original trees: 150
+// Chain reduction deleted taxon 345 representing the subset of taxa from the original trees: 345
+// 3-2 chain reduction deleted taxon 172 representing the subset of taxa from the original trees: 172
+// Chain reduction deleted taxon 347 representing the subset of taxa from the original trees: 347,188
+// 3-2 chain reduction deleted taxon 204 representing the subset of taxa from the original trees: 204
+// Chain reduction deleted taxon 111 representing the subset of taxa from the original trees: 111
+// 3-2 chain reduction deleted taxon 143 representing the subset of taxa from the original trees: 143,70,227
+// Chain reduction deleted taxon 302 representing the subset of taxa from the original trees: 302,212,132,242,235,90
+// Chain reduction deleted taxon 106 representing the subset of taxa from the original trees: 106,218,192,80,340,344
+// Chain reduction deleted taxon 47 representing the subset of taxa from the original trees: 47,173,100
+// Chain reduction deleted taxon 185 representing the subset of taxa from the original trees: 185,12
+// 3-2 chain reduction deleted taxon 247 representing the subset of taxa from the original trees: 247
+// Chain reduction deleted taxon 31 representing the subset of taxa from the original trees: 31,289,97,118
+// Chain reduction deleted taxon 236 representing the subset of taxa from the original trees: 236,82,285,267,278,265,269,234,339,241,72
+// Chain reduction deleted taxon 158 representing the subset of taxa from the original trees: 158,280,62,232,44,35,316
+// Chain reduction deleted taxon 109 representing the subset of taxa from the original trees: 109,324,288
+// 3-2 chain reduction deleted taxon 205 representing the subset of taxa from the original trees: 205
+// 3-2 chain reduction deleted taxon 201 representing the subset of taxa from the original trees: 201,209
+// 3-2 chain reduction deleted taxon 28 representing the subset of taxa from the original trees: 28,277
+// 3-2 chain reduction deleted taxon 217 representing the subset of taxa from the original trees: 217
+// 3-2 chain reduction deleted taxon 245 representing the subset of taxa from the original trees: 245
+// 3-2 chain reduction deleted taxon 19 representing the subset of taxa from the original trees: 19,45
+// Chain reduction deleted taxon 348 representing the subset of taxa from the original trees: 348
+// Chain reduction deleted taxon 195 representing the subset of taxa from the original trees: 195
+// Chain reduction deleted taxon 134 representing the subset of taxa from the original trees: 134
+// Chain reduction deleted taxon 219 representing the subset of taxa from the original trees: 219
+// 3-2 chain reduction deleted taxon 223 representing the subset of taxa from the original trees: 223,171
+// 3-2 chain reduction deleted taxon 81 representing the subset of taxa from the original trees: 81,350
+// 3-2 chain reduction deleted taxon 108 representing the subset of taxa from the original trees: 108,318,300
+// Chain reduction deleted taxon 133 representing the subset of taxa from the original trees: 133
+// Chain reduction deleted taxon 162 representing the subset of taxa from the original trees: 162
+// Chain reduction deleted taxon 231 representing the subset of taxa from the original trees: 231
+// Chain reduction deleted taxon 61 representing the subset of taxa from the original trees: 61,293
+// 3-2 chain reduction deleted taxon 181 representing the subset of taxa from the original trees: 181
+// 3-2 chain reduction deleted taxon 306 representing the subset of taxa from the original trees: 306
+// Chain reduction deleted taxon 115 representing the subset of taxa from the original trees: 115,5
+// Chain reduction deleted taxon 189 representing the subset of taxa from the original trees: 189,349,9
+// Chain reduction deleted taxon 136 representing the subset of taxa from the original trees: 136,248,342,139,275,184,174,107,333,259,3,141,229,272,71,77,334,21,32,246
+// 3-2 chain reduction deleted taxon 183 representing the subset of taxa from the original trees: 183,338,92
+// 3-2 chain reduction deleted taxon 51 representing the subset of taxa from the original trees: 51
+// 3-2 chain reduction deleted taxon 332 representing the subset of taxa from the original trees: 332
+// 3-2 chain reduction deleted taxon 226 representing the subset of taxa from the original trees: 226,135
+// 3-2 chain reduction deleted taxon 159 representing the subset of taxa from the original trees: 159,323,224,319
+// 3-2 chain reduction deleted taxon 56 representing the subset of taxa from the original trees: 56,66,197,175
+// The next 3 lines contain the two reduced trees, followed by the parameter reduction.
+((((((((((((253,(64,257)),23),((((((343,105),10),140),328),230),128)),88),196),((39,167),166)),268),73),((((((42,49),50),93),286),329),129)),((120,271),315)),(((((((((((((((13,103),161),121),216),264),281),178),29),243),320),116),214),(305,98)),(2,75)),221)),18);
+(((((73,((((88,((328,230),128)),196),(166,(39,(167,(13,(103,(161,(121,(216,(264,(281,(178,(29,(243,(320,(116,(214,(98,((105,((10,140),343)),305))))))))))))))))))),268)),((286,329),129)),(((120,(42,(49,(50,93)))),271),315)),(221,(2,((64,(257,(253,23))),75)))),18);
+21

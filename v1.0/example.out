@@ -1,0 +1,141 @@
+// RMAFKernel.jj Version 1.0 by Steven Kelk, December 2025
+// An implementation of the 9k kernel for two-tree binary rMAF by Kelk, Linz and Meuwese
+// See: https://doi.org/10.1016/j.ipl.2022.106336
+// --- Kernelization is finished.
+// Leaves in original instance: 350
+// Leaves in reduced instance: 47
+// So 303 leaves removed. Breakdown is as follows:
+// --- Due to subtree reduction: 224
+// --- Due to chain reduction: 58
+// --- Due to 3-2 chain reduction: 21
+// Explaining the semantics of the surviving and deleted taxa:
+// Taxon 253 represents the following subset of taxa from the original trees: 253,210,16,240,261,233,283,22,137,34,110,148,94,8,151,11,251,252,40,112,165,87,153,266,113
+// Taxon 64 represents the following subset of taxa from the original trees: 64,102,202,273,15,91,308,304,63
+// Taxon 257 represents the following subset of taxa from the original trees: 257
+// Taxon 23 represents the following subset of taxa from the original trees: 23,170,312,335,182,59,270,27,96,41,292,36,309,176
+// Taxon 343 represents the following subset of taxa from the original trees: 343,85,194
+// Taxon 105 represents the following subset of taxa from the original trees: 105
+// Taxon 10 represents the following subset of taxa from the original trees: 10
+// Taxon 140 represents the following subset of taxa from the original trees: 140
+// Taxon 328 represents the following subset of taxa from the original trees: 328
+// Taxon 230 represents the following subset of taxa from the original trees: 230,249
+// Taxon 128 represents the following subset of taxa from the original trees: 128
+// Taxon 88 represents the following subset of taxa from the original trees: 88,294,244,142,297
+// Taxon 196 represents the following subset of taxa from the original trees: 196,263,208,124,180,258,33,83
+// Taxon 39 represents the following subset of taxa from the original trees: 39,46,238,157,155,336,163,17,48,68
+// Taxon 167 represents the following subset of taxa from the original trees: 167
+// Taxon 166 represents the following subset of taxa from the original trees: 166
+// Taxon 268 represents the following subset of taxa from the original trees: 268,313,220,331,307
+// Taxon 73 represents the following subset of taxa from the original trees: 73,149,122,303,206,262
+// Taxon 42 represents the following subset of taxa from the original trees: 42
+// Taxon 49 represents the following subset of taxa from the original trees: 49
+// Taxon 50 represents the following subset of taxa from the original trees: 50
+// Taxon 93 represents the following subset of taxa from the original trees: 93
+// Taxon 286 represents the following subset of taxa from the original trees: 286,144,164
+// Taxon 329 represents the following subset of taxa from the original trees: 329
+// Taxon 129 represents the following subset of taxa from the original trees: 129,284
+// Taxon 120 represents the following subset of taxa from the original trees: 120,38
+// Taxon 271 represents the following subset of taxa from the original trees: 271,298,327
+// Taxon 315 represents the following subset of taxa from the original trees: 315,25
+// Taxon 13 represents the following subset of taxa from the original trees: 13,26,222,250
+// Taxon 103 represents the following subset of taxa from the original trees: 103
+// Taxon 161 represents the following subset of taxa from the original trees: 161
+// Taxon 121 represents the following subset of taxa from the original trees: 121,58
+// Taxon 216 represents the following subset of taxa from the original trees: 216
+// Taxon 264 represents the following subset of taxa from the original trees: 264,119,299,177
+// Taxon 281 represents the following subset of taxa from the original trees: 281,114
+// Taxon 178 represents the following subset of taxa from the original trees: 178
+// Taxon 29 represents the following subset of taxa from the original trees: 29
+// Taxon 243 represents the following subset of taxa from the original trees: 243,123
+// Taxon 320 represents the following subset of taxa from the original trees: 320,301
+// Taxon 116 represents the following subset of taxa from the original trees: 116,203
+// Taxon 214 represents the following subset of taxa from the original trees: 214,179
+// Taxon 305 represents the following subset of taxa from the original trees: 305
+// Taxon 98 represents the following subset of taxa from the original trees: 98
+// Taxon 2 represents the following subset of taxa from the original trees: 2
+// Taxon 75 represents the following subset of taxa from the original trees: 75
+// Taxon 221 represents the following subset of taxa from the original trees: 221,147
+// Taxon 18 represents the following subset of taxa from the original trees: 18,322,314,160,199,24,290,84,76,239,60,310,37,99,104,86,330,30,346,57,43,127,193,274,254,4
+// Chain reduction deleted taxon 168 representing the subset of taxa from the original trees: 168,69,156,198,260,74,255,256,321,287,207,237
+// Chain reduction deleted taxon 291 representing the subset of taxa from the original trees: 291
+// Chain reduction deleted taxon 54 representing the subset of taxa from the original trees: 54,296
+// Chain reduction deleted taxon 7 representing the subset of taxa from the original trees: 7
+// Chain reduction deleted taxon 317 representing the subset of taxa from the original trees: 317
+// Chain reduction deleted taxon 131 representing the subset of taxa from the original trees: 131,52,130,191
+// Chain reduction deleted taxon 200 representing the subset of taxa from the original trees: 200
+// Chain reduction deleted taxon 213 representing the subset of taxa from the original trees: 213
+// Chain reduction deleted taxon 138 representing the subset of taxa from the original trees: 138
+// Chain reduction deleted taxon 14 representing the subset of taxa from the original trees: 14
+// Chain reduction deleted taxon 225 representing the subset of taxa from the original trees: 225,125
+// Chain reduction deleted taxon 65 representing the subset of taxa from the original trees: 65
+// Chain reduction deleted taxon 79 representing the subset of taxa from the original trees: 79
+// Chain reduction deleted taxon 78 representing the subset of taxa from the original trees: 78
+// Chain reduction deleted taxon 282 representing the subset of taxa from the original trees: 282
+// Chain reduction deleted taxon 326 representing the subset of taxa from the original trees: 326
+// Chain reduction deleted taxon 325 representing the subset of taxa from the original trees: 325
+// Chain reduction deleted taxon 101 representing the subset of taxa from the original trees: 101,276,187
+// Chain reduction deleted taxon 152 representing the subset of taxa from the original trees: 152,154
+// Chain reduction deleted taxon 6 representing the subset of taxa from the original trees: 6
+// Chain reduction deleted taxon 190 representing the subset of taxa from the original trees: 190
+// Chain reduction deleted taxon 169 representing the subset of taxa from the original trees: 169
+// Chain reduction deleted taxon 126 representing the subset of taxa from the original trees: 126
+// Chain reduction deleted taxon 146 representing the subset of taxa from the original trees: 146,337
+// Chain reduction deleted taxon 55 representing the subset of taxa from the original trees: 55
+// Chain reduction deleted taxon 211 representing the subset of taxa from the original trees: 211,311
+// Chain reduction deleted taxon 341 representing the subset of taxa from the original trees: 341,186
+// Chain reduction deleted taxon 67 representing the subset of taxa from the original trees: 67,279
+// Chain reduction deleted taxon 53 representing the subset of taxa from the original trees: 53,1
+// Chain reduction deleted taxon 89 representing the subset of taxa from the original trees: 89,228
+// Chain reduction deleted taxon 20 representing the subset of taxa from the original trees: 20
+// Chain reduction deleted taxon 95 representing the subset of taxa from the original trees: 95
+// Chain reduction deleted taxon 145 representing the subset of taxa from the original trees: 145
+// Chain reduction deleted taxon 117 representing the subset of taxa from the original trees: 117,215
+// Chain reduction deleted taxon 295 representing the subset of taxa from the original trees: 295
+// Chain reduction deleted taxon 150 representing the subset of taxa from the original trees: 150
+// Chain reduction deleted taxon 345 representing the subset of taxa from the original trees: 345
+// 3-2 chain reduction deleted taxon 172 representing the subset of taxa from the original trees: 172
+// Chain reduction deleted taxon 347 representing the subset of taxa from the original trees: 347,188
+// 3-2 chain reduction deleted taxon 204 representing the subset of taxa from the original trees: 204
+// Chain reduction deleted taxon 111 representing the subset of taxa from the original trees: 111
+// 3-2 chain reduction deleted taxon 143 representing the subset of taxa from the original trees: 143,70,227
+// Chain reduction deleted taxon 302 representing the subset of taxa from the original trees: 302,212,132,242,235,90
+// Chain reduction deleted taxon 106 representing the subset of taxa from the original trees: 106,218,192,80,340,344
+// Chain reduction deleted taxon 47 representing the subset of taxa from the original trees: 47,173,100
+// Chain reduction deleted taxon 185 representing the subset of taxa from the original trees: 185,12
+// 3-2 chain reduction deleted taxon 247 representing the subset of taxa from the original trees: 247
+// Chain reduction deleted taxon 31 representing the subset of taxa from the original trees: 31,289,97,118
+// Chain reduction deleted taxon 236 representing the subset of taxa from the original trees: 236,82,285,267,278,265,269,234,339,241,72
+// Chain reduction deleted taxon 158 representing the subset of taxa from the original trees: 158,280,62,232,44,35,316
+// Chain reduction deleted taxon 109 representing the subset of taxa from the original trees: 109,324,288
+// 3-2 chain reduction deleted taxon 205 representing the subset of taxa from the original trees: 205
+// 3-2 chain reduction deleted taxon 201 representing the subset of taxa from the original trees: 201,209
+// 3-2 chain reduction deleted taxon 28 representing the subset of taxa from the original trees: 28,277
+// 3-2 chain reduction deleted taxon 217 representing the subset of taxa from the original trees: 217
+// 3-2 chain reduction deleted taxon 245 representing the subset of taxa from the original trees: 245
+// 3-2 chain reduction deleted taxon 19 representing the subset of taxa from the original trees: 19,45
+// Chain reduction deleted taxon 348 representing the subset of taxa from the original trees: 348
+// Chain reduction deleted taxon 195 representing the subset of taxa from the original trees: 195
+// Chain reduction deleted taxon 134 representing the subset of taxa from the original trees: 134
+// Chain reduction deleted taxon 219 representing the subset of taxa from the original trees: 219
+// 3-2 chain reduction deleted taxon 223 representing the subset of taxa from the original trees: 223,171
+// 3-2 chain reduction deleted taxon 81 representing the subset of taxa from the original trees: 81,350
+// 3-2 chain reduction deleted taxon 108 representing the subset of taxa from the original trees: 108,318,300
+// Chain reduction deleted taxon 133 representing the subset of taxa from the original trees: 133
+// Chain reduction deleted taxon 162 representing the subset of taxa from the original trees: 162
+// Chain reduction deleted taxon 231 representing the subset of taxa from the original trees: 231
+// Chain reduction deleted taxon 61 representing the subset of taxa from the original trees: 61,293
+// 3-2 chain reduction deleted taxon 181 representing the subset of taxa from the original trees: 181
+// 3-2 chain reduction deleted taxon 306 representing the subset of taxa from the original trees: 306
+// Chain reduction deleted taxon 115 representing the subset of taxa from the original trees: 115,5
+// Chain reduction deleted taxon 189 representing the subset of taxa from the original trees: 189,349,9
+// Chain reduction deleted taxon 136 representing the subset of taxa from the original trees: 136,248,342,139,275,184,174,107,333,259,3,141,229,272,71,77,334,21,32,246
+// 3-2 chain reduction deleted taxon 183 representing the subset of taxa from the original trees: 183,338,92
+// 3-2 chain reduction deleted taxon 51 representing the subset of taxa from the original trees: 51
+// 3-2 chain reduction deleted taxon 332 representing the subset of taxa from the original trees: 332
+// 3-2 chain reduction deleted taxon 226 representing the subset of taxa from the original trees: 226,135
+// 3-2 chain reduction deleted taxon 159 representing the subset of taxa from the original trees: 159,323,224,319
+// 3-2 chain reduction deleted taxon 56 representing the subset of taxa from the original trees: 56,66,197,175
+// The next 3 lines contain the two reduced trees, followed by the parameter reduction.
+((((((((((((253,(64,257)),23),((((((343,105),10),140),328),230),128)),88),196),((39,167),166)),268),73),((((((42,49),50),93),286),329),129)),((120,271),315)),(((((((((((((((13,103),161),121),216),264),281),178),29),243),320),116),214),(305,98)),(2,75)),221)),18);
+(((((73,((((88,((328,230),128)),196),(166,(39,(167,(13,(103,(161,(121,(216,(264,(281,(178,(29,(243,(320,(116,(214,(98,((105,((10,140),343)),305))))))))))))))))))),268)),((286,329),129)),(((120,(42,(49,(50,93)))),271),315)),(221,(2,((64,(257,(253,23))),75)))),18);
+21

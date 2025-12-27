@@ -1,0 +1,1004 @@
+options{
+  LOOKAHEAD = 2;
+  FORCE_LA_CHECK = true;  
+}
+
+ 
+PARSER_BEGIN(RMAFKernel)
+
+//! This is based on the Newick parser found at http://olduvai.sourceforge.net/tj/tj-javadoc-public/Parser/Newick.html, thanks to the author!
+
+import java.util.*;
+
+class TreeNode
+	{
+	TreeNode parent;
+	Vector children;
+	String name;
+
+	String metaName;	//! If it represents a subset of taxa, this is the subset of taxa that it represents
+	int num;		//! An internal numbering system for taxa
+		
+	public TreeNode()
+		{
+		parent = null;
+		children = new Vector();
+		name = null;
+		num = -1;
+		}	
+
+	public void addChild( TreeNode c )
+		{
+		children.add(c);
+		}	
+
+	public TreeNode getParent()
+		{
+		return parent;
+		}
+
+	public void setParent( TreeNode p )
+		{
+		this.parent = p;
+		} 
+
+	public void setName( String s )
+		{
+		name = s;
+		}
+
+	public void setMetaName( String s )
+		{
+		metaName = s;
+		}
+
+	public String getName()
+		{
+		return name;
+		}
+
+	public String getMetaName()
+		{
+		return metaName;
+		}
+
+	public void setNumber(int n)
+		{
+		num = n;
+		}
+
+	public Vector getChildren()
+		{
+		return children;
+		}
+
+
+	//! if the current root is not incident to the root, it returns null
+	//! otherwise it returns the sibling node (i.e. the other node incident
+	//! to the root)
+
+	public TreeNode incidentToRoot()
+		{
+		if( parent == null ) return null;
+
+		if( parent.parent != null ) return null;
+
+		TreeNode parentC1 = (TreeNode) parent.children.elementAt(0);
+		TreeNode parentC2 = (TreeNode) parent.children.elementAt(1);
+
+		if( parentC1 == this) return parentC2;
+		else
+		if( parentC2 == this) return parentC1;
+		else	{
+			System.out.println("Error 1. Quitting.");
+			System.exit(1);
+			}
+
+		//! Should never be reached
+		return null;
+		}
+
+	//! only call this for internal nodes (i.e. not leaves)
+
+	public boolean hasThisChild( int y )
+		{
+		if( children.size() == 0 )
+			{
+			System.out.println("Error 2. Quitting.");
+			System.exit(1);
+			}
+		TreeNode C1 = (TreeNode) children.elementAt(0);
+		TreeNode C2 = (TreeNode) children.elementAt(1);
+		
+		if( C1.num == y ) return true;
+		if( C2.num == y ) return true;
+
+		return false;
+		}
+
+	//! returns the number of leaf children
+
+	public int numberLeafChildren()
+		{
+		if( children.size() == 0 ) return 0;
+
+		int total = 0;
+
+		TreeNode C1 = (TreeNode) children.elementAt(0);
+		TreeNode C2 = (TreeNode) children.elementAt(1);
+		
+		if( C1.children.size() == 0 ) total++;
+		if( C2.children.size() == 0 ) total++;
+
+		return total;
+		}
+	
+	//! can be applied to taxa or internal nodes
+	//! (but don't call at the root!)
+
+	public TreeNode getSiblingNode()
+		{
+		TreeNode parentC1 = (TreeNode) parent.children.elementAt(0);
+		TreeNode parentC2 = (TreeNode) parent.children.elementAt(1);
+
+		if( parentC1 == this ) return parentC2;
+		if( parentC2 == this ) return parentC1;
+
+		return null; 		
+		}
+
+
+	//! only call for interior nodes
+	//! precondition here is that exactly one of the two children is a leaf,
+	//! and that the other is an internal node
+
+	public TreeNode getNonLeafChild()
+		{
+		TreeNode C1 = (TreeNode) children.elementAt(0);
+		TreeNode C2 = (TreeNode) children.elementAt(1);
+
+		if( C1.children.size() == 0 )
+			{
+			if( C2.children.size() == 0 )
+				{
+				System.out.println("Error 3. Quitting.");
+				System.exit(1);
+				}
+			return C2;
+			}
+
+
+		if( C2.children.size() == 0 )
+			{
+			if( C1.children.size() == 0 )
+				{
+				System.out.println("Error 4. Quitting.");
+				System.exit(1);
+				}
+			return C1;
+			}
+
+		return null;
+		}
+
+
+	//! only call for interior nodes
+	//! precondition here is that exactly one of the two children is a leaf,
+	//! and that the other is an internal node
+
+	public TreeNode getLeafChild()
+		{
+		TreeNode C1 = (TreeNode) children.elementAt(0);
+		TreeNode C2 = (TreeNode) children.elementAt(1);
+
+		if( C1.children.size() != 0 )
+			{
+			if( C2.children.size() != 0 )
+				{
+				System.out.println("Error 5. Quitting.");
+				System.exit(1);
+				}
+			return C2;
+			}
+
+
+		if( C2.children.size() != 0 )
+			{
+			if( C1.children.size() != 0 )
+				{
+				System.out.println("Error 6. Quitting.");
+				System.exit(1);
+				}
+			return C1;
+			}
+
+		return null;
+		}
+
+
+	//! In this implementation the following method only works for leaves, that are not incident to the root.
+	//! The only time this does not (potentially) happen is in the 3-2 chain reduction
+	//! and there a special check in place in the 3-2 reduction itself to catch this situation.
+
+	public void deleteTaxon()
+		{
+		
+		TreeNode pc1 = (TreeNode) parent.children.elementAt(0);
+		TreeNode pc2 = (TreeNode) parent.children.elementAt(1);
+		
+		TreeNode grandparent = parent.parent;
+
+		TreeNode sibling = null;
+
+		if( pc1 == this ) sibling = pc2;
+		else
+		if( pc2 == this ) sibling = pc1;
+		else	{
+			System.out.println("Error 7. Quitting.");
+			System.exit(1);
+			}
+
+		//! Suppress 'parent' by linking the sibling and the grandparent.
+
+		sibling.parent = grandparent;
+
+		if( ((TreeNode) grandparent.children.elementAt(0)) == parent )
+			{
+			grandparent.children.set(0,sibling);
+			}
+		else
+		if( ((TreeNode) grandparent.children.elementAt(1)) == parent )
+			{
+			grandparent.children.set(1,sibling);
+			}
+		else	{
+			System.out.println("Error 8. Quitting.");
+			System.exit(1);
+			}
+
+
+		}
+
+
+	//! if not part of a cherry, returns null
+	//! otherwise returns the sibling
+
+	public TreeNode partOfCherry()
+		{
+		
+		TreeNode pc1 = (TreeNode) parent.children.elementAt(0);
+		TreeNode pc2 = (TreeNode) parent.children.elementAt(1);
+		
+		TreeNode sibling = null;
+
+		if( pc1 == this ) sibling = pc2;
+		else
+		if( pc2 == this ) sibling = pc1;
+		else	{
+			System.out.println("Error 9. Quitting.");
+			System.exit(1);
+			}
+
+		if( sibling.children.size() != 0 )
+			{
+			return null;
+			}
+		else
+			{
+			return sibling;
+			}
+
+		}
+
+
+	//! simply allows us to map internal taxa numbers to the TreeNode it is in (in this tree)
+	public void createLeafLookUp( TreeNode taxa[] )
+		{
+		if( children.size() == 0 )
+			{
+			taxa[num] = this;	
+			}
+		else
+			{
+			TreeNode left = (TreeNode) this.children.elementAt(0);
+			TreeNode right = (TreeNode) this.children.elementAt(1);
+			left.createLeafLookUp( taxa );
+			right.createLeafLookUp( taxa );
+			}
+
+		}
+
+	public void dumpTree()
+		{
+		if( this.children.size() == 0 )
+			{
+			//! This node has no children so it's a leaf
+			System.out.print(this.name);
+			}
+		else
+			{
+			System.out.print("(");
+			Enumeration e = this.getChildren().elements();
+			boolean first = true;
+			while( e.hasMoreElements() )
+				{
+				if( !first ) System.out.print(",");
+				first = false;
+				((TreeNode) e.nextElement()).dumpTree();
+				}	
+			System.out.print(")");
+			}
+		
+		
+		}
+
+
+	public void listIdentityRemainingTaxa()
+		{
+		if( this.children.size() == 0 )
+			{
+			System.out.println("// Taxon "+name+" represents the following subset of taxa from the original trees: "+metaName);
+			}
+		else
+			{
+			Enumeration e = this.getChildren().elements();
+			while( e.hasMoreElements() )
+				{
+				((TreeNode)e.nextElement()).listIdentityRemainingTaxa();
+				}	
+			}		
+		
+		}
+
+
+
+
+
+		
+	}
+
+
+
+//! ------------------------------------------
+
+public class RMAFKernel {
+	
+	
+	public static Hashtable nameToNum;
+	public static Hashtable numToName;
+
+	public static int seenLeaves = 0;
+
+	public static TreeNode t1;
+	public static TreeNode t2;
+
+	public static final boolean DEBUG = false;
+	
+		
+	public static int getLeafNumber( String leaf )
+		{
+		if( nameToNum == null ) nameToNum = new Hashtable();
+
+		Integer i = (Integer) nameToNum.get( leaf );
+
+		if( i != null )
+			{
+			return i.intValue();
+			}
+
+		seenLeaves++;
+
+		i = Integer.valueOf(seenLeaves);
+
+		//! System.out.println("// Leaf '"+leaf+"' gets internal number "+seenLeaves);
+
+		nameToNum.put( leaf, i );
+
+		if( numToName == null )
+			{
+			numToName = new Hashtable();
+			}
+
+		numToName.put( i, leaf );
+
+		return seenLeaves;
+		}
+
+
+	public static String getLeafName( int num )
+		{
+		Integer i = Integer.valueOf(num);
+
+		if( numToName == null )
+			{
+			numToName = new Hashtable();
+			}
+
+		String s = (String) numToName.get( i );
+
+		return s;
+		}
+
+
+  public static TreeNode tree;
+
+  public static TreeNode current_node;
+
+  private static TreeNode tn;  
+
+  public static int leaves = 0;
+  public static int trees = 0;
+
+
+  public static TreeNode taxaLookUpT1[];
+  public static TreeNode taxaLookUpT2[];
+
+  public static boolean activeTaxa[];
+
+
+  public static void parseTrees()
+	{
+	RMAFKernel n = new RMAFKernel(System.in);
+
+	try{ n.Input(); }
+	catch( ParseException e )
+		{
+		System.out.println("Parsing error! Trees were malformed.");
+	        e.printStackTrace();
+		System.exit(1);
+    		}
+
+  	}
+
+public static String VERSION = "// RMAFKernel.jj Version 1.0 by Steven Kelk, December 2025\n// An implementation of the 9k kernel for two-tree binary rMAF by Kelk, Linz and Meuwese\n// See: https://doi.org/10.1016/j.ipl.2022.106336";
+
+public static boolean VERBOSE = false;
+
+public static StringBuffer taxaExplanation = null;
+
+  public static void main(String args[])
+	{
+	if( args.length >= 1 )
+		{
+		if( args[0].equals("--verbose") || args[0].equals("-verbose") )
+			{
+			RMAFKernel.VERBOSE = true;
+			System.out.println("// Verbose mode switched on.");
+			}
+		}
+
+	parseTrees();
+	}
+
+
+}	
+
+PARSER_END(RMAFKernel)
+
+SKIP :
+{
+  " "
+| "\t"
+| "\n"
+| "\r"
+| "\f"
+| <comment: "[" ( ~["]"] )* "]"> 
+}
+
+void Input() :
+{ 
+  String s; 
+  double len;
+}
+{
+  (
+  { tree = new TreeNode(); current_node = tree; leaves = 0; } 
+  descendant_list() 
+  ( s = label() {}  )? 
+  ( ":" len = branch_length()   )? 
+  ";"
+	{        
+	trees++;
+	
+	if( trees > 2 )
+		{
+		System.out.println("Only two trees allowed in the input! Stopping.");
+		System.exit(0);
+		}
+
+	if(trees==1)
+		{
+		RMAFKernel.t1 = tree;
+		}
+	else
+	if(trees==2)
+		{
+		RMAFKernel.t2 = tree;
+		}
+	
+	}
+ )*
+  <EOF>
+
+	{
+	System.out.println(VERSION);
+
+	int taxa = RMAFKernel.seenLeaves;
+
+	taxaExplanation = new StringBuffer();	
+
+	taxaLookUpT1 = new TreeNode[ taxa+1 ];
+	taxaLookUpT2 = new TreeNode[ taxa+1 ];
+
+	t1.createLeafLookUp( taxaLookUpT1 );
+	t2.createLeafLookUp( taxaLookUpT2 );
+
+	RMAFKernel.activeTaxa = new boolean[ seenLeaves + 1 ];
+	for( int x=1; x<=seenLeaves; x++)
+		{
+		RMAFKernel.activeTaxa[x] = true;
+		}
+
+	boolean finished = false;
+
+	//! ----------------------------------------------------------
+	//! Main kernelization loop
+
+	int leavesLeft = seenLeaves;
+
+	int paramReduction = 0;
+
+	int subtreeDeleted = 0;
+
+	int chainDeleted = 0;
+
+	reduce: while( !finished )
+		{
+		if(VERBOSE) System.out.println("// "+leavesLeft+" taxa are still left.");
+
+		//t1.dumpTree();
+		//System.out.println(";");
+		//t2.dumpTree();
+		//System.out.println(";");
+		//System.out.println(paramReduction);
+
+		finished = true;
+
+		if( leavesLeft <= 2 )
+			{
+			//! To avoid edge cases with the root we can just stop now.
+			break reduce;
+			}
+
+		//! --------------------------------------------------------------------------------
+		//! cherry reduction....
+
+		cherryHunt: for( int x=1; x<=seenLeaves; x++)
+			{
+			if( activeTaxa[x] == true )
+				{
+				TreeNode myleaf1 = taxaLookUpT1[x];
+				TreeNode myleaf2 = taxaLookUpT2[x];
+
+				TreeNode siblingT1 = myleaf1.partOfCherry();
+
+				TreeNode siblingT2 = myleaf2.partOfCherry();
+
+				if( (siblingT1 == null) || (siblingT2 == null) ) continue cherryHunt;
+
+				if( siblingT1.num == siblingT2.num )
+					{
+					//! Found a common cherry! Delete the sibling in both trees
+
+					activeTaxa[ siblingT1.num ] = false;
+					leavesLeft--;
+					subtreeDeleted++;
+
+
+					myleaf1.setMetaName( myleaf1.getMetaName()+","+siblingT1.getMetaName() );
+					myleaf2.setMetaName( myleaf2.getMetaName()+","+siblingT2.getMetaName() );
+
+					siblingT1.deleteTaxon();
+					siblingT2.deleteTaxon();
+
+					if(VERBOSE) System.out.println("// Reduced common cherry ("+getLeafName(x)+","+getLeafName(siblingT1.num)+") into single taxon "+getLeafName(x));
+
+					finished = false;
+					continue reduce;
+					}
+				}
+			}
+
+		//! 4-chain reduction ---------------------------------------------------
+
+		//! We assume that 'x' is the leaf at the top of the chain, and move down.
+
+		ChainHunt: for( int x=1; x<=seenLeaves; x++)
+			{
+			int chainBase[] = new int[4];
+			
+			if( activeTaxa[x] == true )
+				{
+
+				chainBase[1] = x;
+
+				TreeNode xInT1 = taxaLookUpT1[x];
+				TreeNode xInT2 = taxaLookUpT2[x];
+
+				TreeNode atT1 = xInT1.parent;
+				TreeNode atT2 = xInT2.parent;
+				
+				if( atT1.numberLeafChildren() != 1 ) continue ChainHunt;
+				if( atT2.numberLeafChildren() != 1 ) continue ChainHunt;
+
+				atT1 = atT1.getNonLeafChild();
+				atT2 = atT2.getNonLeafChild();
+
+				if( atT1.numberLeafChildren() != 1 ) continue ChainHunt;
+				if( atT2.numberLeafChildren() != 1 ) continue ChainHunt;
+
+				TreeNode c1 = atT1.getLeafChild();
+				TreeNode c2 = atT2.getLeafChild();
+
+				//! compare the second leaf in the chain. No pendancy issues yet.
+
+				if( c1.num != c2.num ) continue ChainHunt;
+
+				chainBase[2] = c1.num;
+
+				atT1 = atT1.getNonLeafChild();
+				atT2 = atT2.getNonLeafChild();
+
+				//! now it gets a bit trickier because there might already be pendancy.
+				//! At this level at most one of the trees can be in a cherry, assuming the subtree reduction
+				//! has already been applied exhaustively
+
+				if( (atT1.numberLeafChildren() != 1) && (atT2.numberLeafChildren() != 1) ) continue ChainHunt;
+
+				//! Ugly case analysis
+				//! the easiest case: in neither tree, the third leaf in the chain is in a cherry
+
+				if( (atT1.numberLeafChildren() == 1) && (atT2.numberLeafChildren() == 1) )
+					{
+					c1 = atT1.getLeafChild();
+					c2 = atT2.getLeafChild();
+					if( c1.num != c2.num ) continue ChainHunt;
+
+					chainBase[3] = c1.num;
+					
+					atT1 = atT1.getNonLeafChild();	//! now at the fourth level in both trees
+					atT2 = atT2.getNonLeafChild();	
+					}
+				else
+				if( (atT1.numberLeafChildren() == 1) && (atT2.numberLeafChildren() == 2) )
+					{
+					c1 = atT1.getLeafChild();
+
+					TreeNode f1 = (TreeNode) atT2.children.elementAt(0);
+					TreeNode f2 = (TreeNode) atT2.children.elementAt(1);
+
+					if( (c1.num != f1.num) && (c1.num != f2.num) ) continue ChainHunt;
+
+					chainBase[3] = c1.num;
+					
+					//! move one step down in the non-pendant chain
+					atT1 = atT1.getNonLeafChild();	
+					}
+				else
+				if( (atT1.numberLeafChildren() == 2) && (atT2.numberLeafChildren() == 1) )
+					{
+					c2 = atT2.getLeafChild();
+
+					TreeNode f1 = (TreeNode) atT1.children.elementAt(0);
+					TreeNode f2 = (TreeNode) atT1.children.elementAt(1);
+
+					if( (c2.num != f1.num) && (c2.num != f2.num) ) continue ChainHunt;
+
+					chainBase[3] = c2.num;
+
+					//! move one step down in the non-pendant chain
+					atT2 = atT2.getNonLeafChild();	//! now at the fourth level in both trees
+					}
+				else	{
+					//! If we reach here, one node has 1 leaf child, and the other has 0 (i.e. both its
+					//! children are internal nodes) -- note that neither of them are leaves themselves.
+
+					//! This can't be a common chain, so continue.
+
+					continue ChainHunt;
+					}
+
+
+				//! Now, if we got this far we are at the fourth level. If there is a common leaf child, we
+				//! can prune it.
+
+				for( int y=1; y<=seenLeaves; y++ )
+					{		
+					if( activeTaxa[y] == false ) continue;
+
+					if( atT1.hasThisChild(y) && atT2.hasThisChild(y) )
+						{
+						//! Found the fourth taxon in the chain
+
+						if(VERBOSE) System.out.println("// Found common 4-chain ("+getLeafName(chainBase[1])+","+getLeafName(chainBase[2])+","+getLeafName(chainBase[3])+","+getLeafName(y)+"). Deleting fourth taxon "+getLeafName(y));
+
+						leavesLeft--;
+						chainDeleted++;
+
+						activeTaxa[y] = false;
+
+						TreeNode del1 = taxaLookUpT1[y];
+						TreeNode del2 = taxaLookUpT2[y];
+
+						taxaExplanation.append("// Chain reduction deleted taxon "+getLeafName(y)+" representing the subset of taxa from the original trees: "+del1.getMetaName()+"\n");
+
+						del1.deleteTaxon();
+						del2.deleteTaxon();
+
+						finished = false;
+						continue reduce;
+						}
+			
+					}
+
+				}
+
+			}
+
+
+		//! ----------------------------------------------------------------------
+		//! 3-2 chain reduction
+
+		//! We guess a taxon p such that {p,q} is a cherry in one tree
+		//! and in the other tree, the only thing separating p and q is a single
+		//! taxon r, which we delete.
+
+		//! without loss of generality we can assume that p is a cherry in both trees
+		//! (if it is q that has this role, we will find it in another iteration)
+
+		ThreeTwoHunt: for( int p=1; p<=seenLeaves; p++)
+			{
+			if( activeTaxa[p] == true )
+				{
+
+				TreeNode pInT1 = taxaLookUpT1[p];
+				TreeNode pInT2 = taxaLookUpT2[p];
+
+				TreeNode siblingT1 = pInT1.partOfCherry();
+
+				TreeNode siblingT2 = pInT2.partOfCherry();
+
+				if( (siblingT1 == null) || (siblingT2 == null) ) continue ThreeTwoHunt;
+				
+				//! -----------------------
+				//! So p is a cherry in both trees.
+				//! First attempt: assume that p is together with q in T1
+				
+
+				TreeNode qInT1 = siblingT1;	
+
+				TreeNode qInT2 = taxaLookUpT2[qInT1.num];
+
+				TreeNode rInT2 = siblingT2;	
+
+				TreeNode rGrandparentT2 = rInT2.parent.parent;	//! won't be null because of pre-conditions
+
+				if( rGrandparentT2 == qInT2.parent )
+					{					
+					//! Aha! Found it!
+					int taxonToDelete = rInT2.num;
+
+					activeTaxa[taxonToDelete] = false;
+					leavesLeft--;
+			
+					paramReduction++;
+		
+					taxaExplanation.append("// 3-2 chain reduction deleted taxon "+getLeafName(taxonToDelete)+" representing the subset of taxa from the original trees: " + taxaLookUpT2[taxonToDelete].getMetaName()+"\n");
+
+
+
+					taxaLookUpT2[taxonToDelete].deleteTaxon();
+
+					// THere is a risk that r is next to the root in T1, so we have
+					// to catch this case and adjust the root location if so.
+
+					TreeNode possibleNewRoot = taxaLookUpT1[taxonToDelete].incidentToRoot();
+
+					if( possibleNewRoot == null ) taxaLookUpT1[taxonToDelete].deleteTaxon();
+					else
+						{
+						t1 = possibleNewRoot;
+						t1.parent = null;
+						}
+
+					if(VERBOSE) System.out.println("// Executed 3-2 chain reduction, removed taxon "+getLeafName(taxonToDelete));
+
+					finished = false;
+					continue reduce;
+					}
+
+				
+				//! Second attempt: assume that p is together with q in T2
+
+				qInT2 = siblingT2;	
+				
+				qInT1 = taxaLookUpT1[qInT2.num];
+
+				TreeNode rInT1 = siblingT1;	
+
+				TreeNode rGrandparentT1 = rInT1.parent.parent;	//! won't be null because of pre-conditions
+
+
+				if( rGrandparentT1 == qInT1.parent )
+					{
+					//! Aha! Found it!
+					int taxonToDelete = rInT1.num;
+
+					activeTaxa[taxonToDelete] = false;
+					leavesLeft--;
+					
+					paramReduction++;
+
+					taxaLookUpT1[taxonToDelete].deleteTaxon();
+
+
+					taxaExplanation.append("// 3-2 chain reduction deleted taxon "+getLeafName(taxonToDelete)+" representing the subset of taxa from the original trees: " + taxaLookUpT1[taxonToDelete].getMetaName()+"\n");
+
+
+					// THere is a risk that r is next to the root in T2, so we have
+					// to catch this case and adjust the root location if so.
+
+					TreeNode possibleNewRoot = taxaLookUpT2[taxonToDelete].incidentToRoot();
+
+					if( possibleNewRoot == null ) taxaLookUpT2[taxonToDelete].deleteTaxon();
+					else
+						{
+						t2 = possibleNewRoot;
+						t2.parent = null;
+						}
+
+
+					if(VERBOSE) System.out.println("// Executed 3-2 chain reduction, removed taxon "+getLeafName(taxonToDelete));
+
+ 
+					finished = false;
+					continue reduce;
+					}
+				
+
+				}
+
+
+			}
+
+
+		}
+
+	System.out.println("// --- Kernelization is finished.");
+	System.out.println("// Leaves in original instance: "+seenLeaves);
+	System.out.println("// Leaves in reduced instance: "+leavesLeft);
+	System.out.println("// So "+(seenLeaves-leavesLeft)+" leaves removed. Breakdown is as follows:");
+	System.out.println("// --- Due to subtree reduction: "+subtreeDeleted);
+
+	System.out.println("// --- Due to chain reduction: "+chainDeleted);
+	System.out.println("// --- Due to 3-2 chain reduction: "+paramReduction);
+	System.out.println("// Explaining the semantics of the surviving and deleted taxa:");
+	t1.listIdentityRemainingTaxa();
+	System.out.print( taxaExplanation.toString() );
+	
+	System.out.println("// The next 3 lines contain the two reduced trees, followed by the parameter reduction.");
+
+
+	t1.dumpTree();
+	System.out.println(";");
+	t2.dumpTree();
+	System.out.println(";");
+	System.out.println(paramReduction);
+
+	//! finished.
+	}
+
+
+}
+
+
+
+void descendant_list():
+{ int children = 0;}
+{
+  "(" { 
+	children++;
+	tn = new TreeNode(); 
+	tn.setParent(current_node);
+	current_node.addChild(tn);
+	current_node = tn;
+      } 
+  subtree() 
+  ( "," {
+	  children++;
+	  tn = new TreeNode();
+	  tn.setParent(current_node);
+	  current_node.addChild(tn);
+	  current_node = tn;
+	}
+    subtree() 
+    )*
+  ")"
+}
+
+
+/** function subtree will set name, length and weight for each tree node */
+void subtree():
+{ 
+  String s;
+  double len; 
+}
+{
+  descendant_list() {}
+  ( s = label() {}    )? 
+  ( ":" len = branch_length() {}	
+    )? { current_node = current_node.getParent(); }
+| ( s = label() { leaves++;
+		int x = getLeafNumber(s);
+		current_node.setName(s); 
+		current_node.setMetaName(s);
+		current_node.setNumber(x);
+		}
+    )?
+  ( ":" len = branch_length() {} 
+    )?
+{ current_node = current_node.parent; }
+}
+
+String label(): 
+{ String s; }
+{ 
+  s = unquoted_label() { return s; }
+| s = quoted_label() { return s; } 
+}
+
+/** for each unquoted label, we need to replace '_' by ' ' */
+String unquoted_label():
+{ Token t; }
+{ 
+  t = <unquoted_string> { String s = new String(t.toString());
+				return s;
+			  // return s.replace('_', ' ');
+ 				}
+| t = <double_number> { return new String(t.toString()); }
+}
+
+/** for each quoted label, we remove double quotes from the string */
+String quoted_label():
+{ Token t; }
+{ 
+  t = <quoted_string> { String s = new String(t.toString());
+			return s.substring(1, s.length()-1); 
+		      }
+}
+
+double branch_length():
+{ Token t; }
+{
+  t = <double_number> { return Double.parseDouble(t.toString()); } 
+}
+
+
+TOKEN:
+{
+  <#digit: ["0"-"9"] >
+| <#alpha: ["a"-"z", "A"-"Z"] >
+| <#only_quote_char: [ "(", ")", "[", "]", ":", ";", "," ]>
+| <#single_quote: "''">
+| <#both_char: [ "~", "`", "!", "@", "#", "$", "%", "^", "&", "*", 
+		 "-", "_", "+", "=", "{", "}", "|", ".", "?", "/", 
+		 "[", "]", "<", ">" ] > 
+| <#whitespace: [ " " , "\t" , "\n" , "\r" ] >
+| <#unquoted_char: ( <digit> | <alpha> | <both_char> ) >
+| <#quoted_char: ( <unquoted_char> | <whitespace> | <only_quote_char> )>
+| <#number: ( <digit> )+ ("." ( <digit> )* )? | "." ( <digit> )+ >
+| <#exponent: ["e", "E"] ("+"|"-")? (<digit>)+ >
+| <double_number: ("+"|"-")? <number> (<exponent>)? >
+| <unquoted_string: ( <unquoted_char> )+ >
+| <quoted_string: "'" ( <quoted_char> | <single_quote> )+ "'" >
+}

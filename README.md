@@ -40,7 +40,7 @@ lines, without a prepended "//", which consist of:
 2. the second reduced tree
 3. the parameter adjustment k. This is the number of 3-2 reductions that were
 executed: each such execution reduces the size of the optimum by exactly 1.
-Hence, after solving the reduced trees, you should k back to it to get the
+Hence, after solving the reduced trees, you should add k back to it to get the
 optimum for the original pair of trees.
 
 Here is an example execution, where example.tree is the pair of trees with 350 taxa

@@ -73,6 +73,9 @@ the instance without, you need to first ensure that {a,b,c} are all in the same
 agreement forest component. (If they are not, you can modify the agreement forest
 to achieve this, without increasing its size).
 
+4. This is NOT the same kernel as the 9k kernel for the *unrooted* version of the binary,
+two-tree problem. That kernel involves many more reduction rules, and is described
+here: https://doi.org/10.1016/j.jcss.2024.103519
 
 RELEASE NOTES
 =============

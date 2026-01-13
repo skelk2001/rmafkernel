@@ -81,6 +81,10 @@ RELEASE NOTES
 =============
 The first release (v1.0) was 27th December 2025.
 
+YOU MIGHT ALSO BE INTERESTED IN
+===============================
+The common cluster reduction for the same problem. See https://skelk.sdf-eu.org/cluster/
+for a pedagogical implementation (I haven't yet uploaded it to GitHub).
 
 BUGS ETC?
 =========
